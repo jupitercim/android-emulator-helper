@@ -16,7 +16,8 @@ curl -O $SDK_URL
 
 # 解压下载的 SDK 工具
 echo "解压 SDK Command Line Tools..."
-unzip commandlinetools-mac-11076708_latest.zip -d tools
+unzip commandlinetools-mac-11076708_latest.zip
+mv cmdline-tools tools
 
 # 设置环境变量
 export ANDROID_SDK_ROOT="$SDK_DIR"
@@ -28,6 +29,7 @@ yes | sdkmanager --sdk_root="$SDK_DIR" "platform-tools" "emulator" "system-image
 
 #下载启动脚本
 curl -L -o  startemulator.sh $START_SCRIPT_URL
+chmod a+x startemulator.sh
 
 # 创建 AVD（如果 AVD 不存在的话）
 echo "检查并创建 AVD（如果不存在）..."
