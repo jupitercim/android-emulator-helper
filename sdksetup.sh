@@ -17,7 +17,7 @@ curl -O $SDK_URL
 
 # 解压下载的 SDK 工具
 echo "解压 SDK Command Line Tools..."
-unzip commandlinetools-mac-11076708_latest.zip
+unzip commandlinetools-mac-9123335_latest.zip
 mv cmdline-tools tools
 
 # 设置环境变量
