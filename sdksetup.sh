@@ -3,7 +3,7 @@
 # 设置 SDK 路径
 SDK_DIR="$HOME/android-sdk"
 AVD_NAME="Pixel_7_API_34"  # 这里填写你想要启动的 AVD 名称
-AVD_ZIP_URL="https://github.com/your-username/your-repo/raw/main/avd-file.zip"
+START_SCRIPT_URL="https://raw.githubusercontent.com/jupitercim/android-emulator-helper/refs/heads/main/startemulator.sh"
 
 # 创建 Android SDK 安装目录
 mkdir -p "$SDK_DIR"
@@ -27,7 +27,7 @@ echo "安装 SDK 组件..."
 yes | sdkmanager --sdk_root="$SDK_DIR" "platform-tools" "emulator" "system-images;android-34;google_apis_playstore;arm64-v8a"
 
 #下载启动脚本
-curl -L -o "" $SDK_DIR
+curl -L -o  startemulator.sh $START_SCRIPT_URL
 
 # 创建 AVD（如果 AVD 不存在的话）
 echo "检查并创建 AVD（如果不存在）..."
