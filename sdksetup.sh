@@ -11,7 +11,8 @@ cd "$SDK_DIR"
 
 # 下载 Android SDK Command Line Tools
 echo "下载 Android SDK Command Line Tools..."
-SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip"
+SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-9123335_latest.zip"
+##SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip"
 curl -O $SDK_URL
 
 # 解压下载的 SDK 工具
