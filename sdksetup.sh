@@ -10,10 +10,19 @@ mkdir -p "$SDK_DIR"
 cd "$SDK_DIR"
 
 # 下载 Android SDK Command Line Tools
-echo "下载 Android SDK Command Line Tools..."
-SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip"
-curl -O $SDK_URL
-
+if [ -d commandline-tools/12.0/ ]; then
+    echo "Android SDK Common line Tool已存在跳过"
+else
+    echo "下载 Android SDK Command Line Tools..."
+    SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip"
+    curl -O $SDK_URL
+    # 解压下载的 SDK 工具
+    echo "解压 SDK Command Line Tools..."
+    unzip commandlinetools-mac-11076708_latest.zip
+    mv commandline-tools 12.0
+    mkdir commandline-tools
+    mv 12.0 commandline-tools/
+fi
 JDK_URL="https://corretto.aws/downloads/latest/amazon-corretto-17-aarch64-macos-jdk.tar.gz"
 
 systeminfo==$(uname -a)
@@ -25,17 +34,16 @@ else
     JDK_URL="https://corretto.aws/downloads/latest/amazon-corretto-17-x64-macos-jdk.tar.gz"
     jdk_file="amazon-corretto-17-x64-macos-jdk.tar.gz"
 fi
-echo "down JDK from: $JDK_URL"
-curl -LO $JDK_URL
-# 解压下载的 SDK 工具
-echo "解压 SDK Command Line Tools..."
-unzip commandlinetools-mac-11076708_latest.zip
-mv commandline-tools 12.0
-mkdir commandline-tools
-mv 12.0 commandline-tools/
 
-tar zxvf $jdk_file
+if [ -d amazon-corretto-17.jdk/Contents/Home ]; then
+    echo "JDK 已安装，跳过"
+else
+    echo "开始下载 JDK from: $JDK_URL"
+    curl -LO $JDK_URL
+    tar zxvf $jdk_file
+fi
 
+echo "开始配置环境变量"
 # 设置环境变量
 export ANDROID_SDK_ROOT="$SDK_DIR"
 export ANDROID_HOME="$ANDROID_SDK_ROOT"
@@ -44,15 +52,15 @@ export JAVA_HOME="$SDK_DIR/amazon-corretto-17.jdk/Contents/Home"
 export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/emulator"
 
 # 安装 SDK 组件（模拟器、系统镜像、平台工具）
-echo "安装 SDK 组件..."
+echo "开始安装 Android SDK 组件..."
 yes | sdkmanager --sdk_root="$SDK_DIR" "platform-tools" "emulator" "system-images;android-34;google_apis_playstore;arm64-v8a"
 
 #下载启动脚本
+echo "开始下载模拟器启动脚本"
 curl -L -o  startemulator.sh $START_SCRIPT_URL
 chmod a+x startemulator.sh
 
 # 创建 AVD（如果 AVD 不存在的话）
-echo "检查并创建 AVD（如果不存在）..."
 if ! emulator -list-avds | grep -q "$AVD_NAME"; then
   echo "AVD '$AVD_NAME' 不存在，正在创建 AVD..."
   sdkmanager --sdk_root="$SDK_DIR" "platforms;android-34"
@@ -60,6 +68,5 @@ if ! emulator -list-avds | grep -q "$AVD_NAME"; then
 else
   echo "AVD '$AVD_NAME' 已经存在。"
 fi
-
 
 echo "初始化完成，请运行$SDK_DIR/startemulator.sh 启动模拟器"
