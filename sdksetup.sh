@@ -1,5 +1,13 @@
 #!/bin/bash
 
+systeminfo==$(uname -a)
+arminfo="ARM64"
+if [[ $systeminfo =~ $arminfo ]]; then
+    echo "当前设备为ARM处理器🖥，继续执行"
+else
+    echo "当前设备为X86设置，无法流畅运行Android 模拟器，初始化流程终止"
+    exit 0
+fi
 # 设置 SDK 路径
 SDK_DIR="$HOME/android-sdk"
 AVD_NAME="Pixel_5_API_34"  # 这里填写你想要启动的 AVD 名称
@@ -29,8 +37,7 @@ else
 fi
 JDK_URL="https://corretto.aws/downloads/latest/amazon-corretto-17-aarch64-macos-jdk.tar.gz"
 
-systeminfo==$(uname -a)
-arminfo="ARM64"
+
 if [[ $systeminfo =~ $arminfo ]]; then
     JDK_URL="https://corretto.aws/downloads/latest/amazon-corretto-17-aarch64-macos-jdk.tar.gz"
     jdk_file="amazon-corretto-17-aarch64-macos-jdk.tar.gz"
