@@ -16,6 +16,10 @@ else
     echo "下载 Android SDK Command Line Tools..."
     SDK_URL="https://dl.google.com/android/repository/commandlinetools-mac-11076708_latest.zip"
     curl -O $SDK_URL
+    if [ $? -ne 0 ]; then
+        echo "Android  SDK Command Line Tools下载失败，请重新运行命令"
+        exit 1
+    fi
     # 解压下载的 SDK 工具
     echo "解压 SDK Command Line Tools..."
     unzip commandlinetools-mac-11076708_latest.zip
@@ -40,6 +44,10 @@ if [ -d amazon-corretto-17.jdk/Contents/Home ]; then
 else
     echo "开始下载 JDK from: $JDK_URL"
     curl -LO $JDK_URL
+    if [ $? -ne 0 ]; then
+        echo "Java SDK下载失败，请重新运行命令"
+        exit 1
+    fi
     tar zxvf $jdk_file
 fi
 
@@ -58,7 +66,19 @@ yes | sdkmanager --sdk_root="$SDK_DIR" "platform-tools" "emulator" "system-image
 #下载启动脚本
 echo "开始下载模拟器启动脚本"
 curl -L -o  startemulator.sh $START_SCRIPT_URL
+if [ $? -ne 0 ]; then
+    echo "模拟器脚本下载失败，请重新运行命令"
+    exit 1
+fi
 chmod a+x startemulator.sh
+
+echo "开始下载Mac 模拟器启动应用"
+curl -Lo androidemulator.zip "https://raw.githubusercontent.com/jupitercim/android-emulator-helper/refs/heads/main/androidemulator.zip"
+if [ $? -ne 0 ]; then
+    echo "模拟器运行程序下载失败，请重新运行命令"
+    exit 1
+fi
+unzip androidemulator.zip
 
 # 创建 AVD（如果 AVD 不存在的话）
 if ! emulator -list-avds | grep -q "$AVD_NAME"; then
@@ -69,4 +89,4 @@ else
   echo "AVD '$AVD_NAME' 已经存在。"
 fi
 
-echo "初始化完成，请运行$SDK_DIR/startemulator.sh 启动模拟器"
+echo "初始化完成，请点击运行 $SDK_DIR/AndroidEmulator.app 启动模拟器"
