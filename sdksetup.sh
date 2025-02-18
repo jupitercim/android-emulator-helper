@@ -30,6 +30,10 @@ curl -LO $JDK_URL
 # 解压下载的 SDK 工具
 echo "解压 SDK Command Line Tools..."
 unzip commandlinetools-mac-11076708_latest.zip
+mv commandline-tools 12.0
+mkdir commandline-tools
+mv 12.0 commandline-tools/
+
 tar zxvf $jdk_file
 
 # 设置环境变量
