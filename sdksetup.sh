@@ -19,7 +19,7 @@ else
     # 解压下载的 SDK 工具
     echo "解压 SDK Command Line Tools..."
     unzip commandlinetools-mac-11076708_latest.zip
-    mv commandline-tools 12.0
+    mv cmdline-tools 12.0
     mkdir cmdline-tools
     mv 12.0 cmdline-tools/
 fi
