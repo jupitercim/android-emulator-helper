@@ -18,7 +18,7 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/jupitercim/android-emula
 在上述命令运行过程中可能需要授权终端应用访问电脑的目录，还需要手动点击允许。
 
 2. 在经过漫长的等待，而且上述运行没有报错之后，就完成了模拟器的安装。
-进入命令行最后输出的`android-sdk`目录中，找到`AndroidEmulator`这个应用(如下图所示)，点击即可运行。
+进入命令行最后输出的目录中，找到`AndroidEmulator`这个应用(如下图所示)，点击即可运行。同时在系统的应用程序中也可以找到这个程序用于启动模拟器。
 
 ![](https://raw.githubusercontent.com/jupitercim/android-emulator-helper/refs/heads/main/pic/emulator.png)
 

@@ -86,6 +86,11 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 unzip androidemulator.zip
+APP_DIR="$HOME/Applications"
+if [ ! -d "$APP_DIR" ]; then
+    mkdir -p "$APP_DIR"
+fi
+mv AndroidEmulator.app "$APP_DIR/"
 
 # 创建 AVD（如果 AVD 不存在的话）
 if ! emulator -list-avds | grep -q "$AVD_NAME"; then
@@ -96,4 +101,4 @@ else
   echo "AVD '$AVD_NAME' 已经存在。"
 fi
 
-echo "初始化完成，请点击运行 $SDK_DIR/AndroidEmulator.app 启动模拟器"
+echo "初始化完成，请点击运行 $APP_DIR/AndroidEmulator.app 启动模拟器"
