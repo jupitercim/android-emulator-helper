@@ -6,7 +6,7 @@
 
 1. 在你的应用程序中找到mac终端，打开并复制如下命令到其中：
 ```bash
-bash -C "$(curl -fsSL https://raw.githubusercontent.com/jupitercim/android-emulator-helper/refs/heads/main/sdksetup.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/jupitercim/android-emulator-helper/refs/heads/main/sdksetup.sh)"
 ```
 
 终端为如下图所示这个应用：
