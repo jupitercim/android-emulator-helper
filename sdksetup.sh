@@ -10,7 +10,7 @@ mkdir -p "$SDK_DIR"
 cd "$SDK_DIR"
 
 # 下载 Android SDK Command Line Tools
-if [ -d commandline-tools/12.0/ ]; then
+if [ -d cmdline-tools/12.0/ ]; then
     echo "Android SDK Common line Tool已存在跳过"
 else
     echo "下载 Android SDK Command Line Tools..."
@@ -20,8 +20,8 @@ else
     echo "解压 SDK Command Line Tools..."
     unzip commandlinetools-mac-11076708_latest.zip
     mv commandline-tools 12.0
-    mkdir commandline-tools
-    mv 12.0 commandline-tools/
+    mkdir cmdline-tools
+    mv 12.0 cmdline-tools/
 fi
 JDK_URL="https://corretto.aws/downloads/latest/amazon-corretto-17-aarch64-macos-jdk.tar.gz"
 
@@ -46,10 +46,10 @@ fi
 echo "开始配置环境变量"
 # 设置环境变量
 export ANDROID_SDK_ROOT="$SDK_DIR"
-export ANDROID_HOME="$ANDROID_SDK_ROOT"
+#export ANDROID_HOME="$ANDROID_SDK_ROOT"
 export JAVA_HOME="$SDK_DIR/amazon-corretto-17.jdk/Contents/Home"
 
-export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/emulator"
+export PATH="$PATH:$ANDROID_SDK_ROOT/cmdline-tools/12.0/bin:$ANDROID_SDK_ROOT/platform-tools:$JAVA_HOME/bin:$ANDROID_SDK_ROOT/emulator"
 
 # 安装 SDK 组件（模拟器、系统镜像、平台工具）
 echo "开始安装 Android SDK 组件..."
